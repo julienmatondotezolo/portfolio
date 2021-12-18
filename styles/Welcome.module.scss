@@ -1,0 +1,31 @@
+@import "colors";
+
+.hero {
+  margin-top: 95px;
+}
+
+.line {
+  height: 40vh;
+  width: 3px;
+  background: #707070;
+}
+
+.article {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.article article {
+  float: left;
+}
+
+.article figure {
+  float: right;
+}
+
+.article figure p {
+  margin-left: 1em;
+  float: left;
+}

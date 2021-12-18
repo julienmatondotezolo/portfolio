@@ -1,0 +1,15 @@
+@import "colors";
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    float: left;
+}
+
+.hero article {
+    display: inline-block;
+    width: 100%;
+}
