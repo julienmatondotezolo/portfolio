@@ -1,0 +1,61 @@
+@import "colors";
+
+.content {
+
+}
+
+.scrollDown {
+    position: fixed;
+    left: 5%;
+    bottom: 5%;
+    overflow: hidden;
+    background: $primaryColor;
+    padding: 2em;
+    border-radius: 30px;
+}
+
+.scrollDown svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.8) rotate(90deg);
+    -webkit-transform: translate(-50%, -50%) scale(.8) rotate(90deg);
+    -moz-transform: translate(-50%, -50%) scale(.8) rotate(90deg);
+    -ms-transform: translate(-50%, -50%) scale(.8) rotate(90deg);
+    -o-transform: translate(-50%, -50%) scale(.8) rotate(90deg);
+}
+  
+.scrollDown .item {
+    width: inherit;
+    height: inherit;
+    background: $red;
+    transform-origin: 50% 100%;
+}
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 95px);
+    float: left;
+}
+
+.hero span {
+    color: $red;
+}
+
+.hero ul {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    max-width: 100%;
+    padding: 4em 0;
+    font-size: 1.2em;
+}
+
+.hero article {
+    display: inline-block;
+    width: 100%;
+}

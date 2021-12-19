@@ -1,0 +1,28 @@
+@import "colors";
+
+.line {
+  height: 40vh;
+  width: 3px;
+  background: #707070;
+}
+
+.article {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.article article {
+  float: left;
+  width: 50%;
+}
+
+.article figure {
+  float: right;
+}
+
+.article figure p {
+  margin-left: 1em;
+  float: left;
+}

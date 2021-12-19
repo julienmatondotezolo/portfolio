@@ -1,0 +1,27 @@
+@import "colors";
+
+.textAnimationHolder {
+    display: block;
+    overflow: hidden;
+    height: 82px;
+    position: relative;
+    top: 0;
+    left: 0;
+    float: left;
+}
+
+.textAnimationHolder span {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.textAnimationHolder span i {
+    width: 100%;
+    float: left;
+}
+
+.emji span {
+    display: inline-block;
+}
