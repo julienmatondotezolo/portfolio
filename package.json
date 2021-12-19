@@ -1,0 +1,25 @@
+{
+  "name": "emji-app",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "framer-motion": "^5.5.4",
+    "next": "12.0.7",
+    "react": "17.0.2",
+    "react-animated-cursor": "^2.2.0",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.22.2",
+    "react-intersection-observer": "^8.33.1"
+  },
+  "devDependencies": {
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7",
+    "postcss": "^8.2.15",
+    "sass": "^1.43.4"
+  }
+}
