@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
 import styles from '../styles/Contact.module.scss'
 import stylesClickMe from '../styles/global/ClickMe.module.scss'
-import Input from "./components/Input";
 
 const Contact = () => {
     const transitionVariants = {
@@ -27,13 +26,6 @@ const Contact = () => {
     const springConfig = { damping: 25, stiffness: 700 };
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
-
-    const { register, handleSubmit, watch, formState: { errors }  } = useForm();
-    const onSubmit = (data) => {
-        alert(JSON.stringify(data));
-    };
-
-    console.log(watch("example"));
 
     return (
         <div>
