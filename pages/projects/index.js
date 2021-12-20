@@ -71,11 +71,11 @@ const Projects = ({projects}) => {
                     <Link href={"/projects/" + project.id} key={project.id} passHref scroll={false}>
                         <div className={stylesProject.projectName}>
                                 <figure>
-                                    <img src="https://picsum.photos/200" alt="Picture"/>
+                                    <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>
                                 </figure>
                                 <article>
-                                    <h3><strong>{project.title}</strong></h3>
-                                    <p>Website & Branding</p>
+                                    <h3><strong>{project.title ? project.title : 'Project name'}</strong></h3>
+                                    <p>{ project.type ? project.type : 'Website & Branding'}</p>
                                 </article>
                         </div>
                     </Link>

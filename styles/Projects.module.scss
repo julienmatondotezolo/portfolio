@@ -96,6 +96,12 @@
     display: inline-block;
     text-align: center;
     width: 100%;
+    padding: 2em 0 4em;
+}
+
+.project > section a {
+    font-size: 1.5em;
+    text-decoration: underline;
 }
 
 .nextProject {

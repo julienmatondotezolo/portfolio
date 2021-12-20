@@ -7,7 +7,16 @@ import styles from '../styles/Home.module.scss'
 import stylesProject from '../styles/Projects.module.scss'
 import stylesClickMe from '../styles/global/ClickMe.module.scss'
 
-const Home = () => {
+export const getStaticProps = async () => {
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const data = await res.json()
+
+    return {
+        props: { projects: data }
+    }
+}
+
+const Home = ({projects}) => {
     const textVariants = {
         hidden: {
             y: 20, opacity: 0
@@ -85,27 +94,19 @@ const Home = () => {
             </div>
 
             <div className={stylesProject.project}>
-                <Link href="/projects/1" passHref scroll={false}>
-                <div className={stylesProject.projectName}>
-                    <figure>
-                        <img src="https://picsum.photos/200" alt="Picture"/>
-                    </figure>
-                    <article>
-                        <h3><strong>Project name 1</strong></h3>
-                        <p>Website & Branding</p>
-                    </article>
-                </div>
-                </Link>
-
-                <div className={stylesProject.projectName}>
-                    <figure>
-                        <img src="https://picsum.photos/200" alt="Picture"/>
-                    </figure>
-                    <article>
-                        <h3><strong>Project name 1</strong></h3>
-                        <p>Website & Branding</p>
-                    </article>
-                </div>
+                {projects.map(project => (
+                    <Link href="/projects/1" passHref scroll={false}>
+                        <div className={stylesProject.projectName}>
+                            <figure>
+                                <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>
+                            </figure>
+                            <article>
+                                <h3><strong>{ project.title ? project.title : 'Project name 1'}</strong></h3>
+                                <p>{ project.type ? project.type : 'Website & Branding'}</p>
+                            </article>
+                        </div>
+                    </Link>
+                ))}
 
                 <section>
                     <Link href="/projects">

@@ -102,22 +102,22 @@ const Details = ({ projectDetail }) => {
             className={stylesProject.projectDetail}>
             <div className={stylesProject.projectName}>
                     <figure>
-                        <img src="https://picsum.photos/200" alt="Picture"/>
+                        <img src={ projectDetail.image ? projectDetail.image : "https://picsum.photos/200"} alt="Picture"/>
                     </figure>
                     <article>
-                        <h3>Website & Branding</h3>
+                        <h3>{ projectDetail.type ? projectDetail.type : 'Website & Branding' }</h3>
                         <h1><strong>{ projectDetail.title }</strong></h1>
                         <p>{ projectDetail.body }</p>
                     </article>
                     <div className={stylesProject.nextProject}>
                         <section>
                             <span>
-                                <p>Website</p>
-                                <p><strong>https://projectone.com/</strong></p>
+                                <p>{ projectDetail.type ? projectDetail.type : 'Website' }</p>
+                                <p><strong>{ projectDetail.url ? projectDetail.url : 'https://projectone.com/'}</strong></p>
                             </span>
                             <span>
                                 <p>Project Date</p>
-                                <p><strong>Dec 2021</strong></p>
+                                <p><strong>{ projectDetail.date ? projectDetail.date : 'Dec 2021' }</strong></p>
                             </span>
                         </section>
 

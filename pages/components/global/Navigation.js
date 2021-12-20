@@ -110,7 +110,7 @@ const Navigation = () => {
                         </Link>
                     </motion.li>
 
-                    <motion.li
+                    {/* <motion.li
                         variants={navListVariants}
                         initial="hidden"
                         whileHover="hover" 
@@ -120,7 +120,7 @@ const Navigation = () => {
                         <Link href="/about">
                             <a>About</a>
                         </Link>
-                    </motion.li>
+                    </motion.li> */}
 
                     <motion.li 
                         variants={navListVariants}
