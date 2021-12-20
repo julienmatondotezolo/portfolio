@@ -7,6 +7,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import "colors";
 
+/*/////////////    FONT   ////////////////*/
+
 @font-face {
     font-family: "TTHoves";
     src: url("/fonts/TTHoves-Regular.ttf");
@@ -38,6 +40,9 @@
     font-weight: 700;
     font-display: swap;
 }
+
+/*/////////////    RESET   ////////////////*/
+/* =========================================================================================================*/
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -85,6 +90,28 @@ table {
 }
 
 /* =========================================================================================================*/
+
+/*/////////////    COLORS   ////////////////*/
+
+.primaryColor {
+    color: $primaryColor
+}
+
+.grey {
+    color: $grey
+}
+
+.red {
+    color: $red
+}
+
+.yellow {
+    color: $yellow
+}
+
+.blue {
+    color: $blue
+}
 
 /*/////////////    BODY   ////////////////*/
 
