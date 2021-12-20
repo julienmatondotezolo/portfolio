@@ -14,8 +14,14 @@
 }
 
 .article article {
+  position: relative;
   float: left;
   width: 50%;
+  transition: all .2s ease-out;
+  -webkit-transition: all .2s ease-out;
+  -moz-transition: all .2s ease-out;
+  -ms-transition: all .2s ease-out;
+  -o-transition: all .2s ease-out;
 }
 
 .article figure {
