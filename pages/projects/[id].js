@@ -73,6 +73,19 @@ const Details = ({ projectDetail }) => {
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
 
+    useEffect(() => {
+        const moveCursor = (e) => {
+          cursorX.set(e.clientX - 5);
+          cursorY.set(e.clientY - 5);
+        };
+    
+        window.addEventListener("mousemove", moveCursor);
+    
+        return () => {
+          window.removeEventListener("mousemove", moveCursor);
+        };
+    }, []);
+
     const nextProject = projectDetail.id + 1
     const previousProject = projectDetail.id == 1 ? 100 : projectDetail.id - 1
 

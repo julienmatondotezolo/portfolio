@@ -27,13 +27,42 @@ const Contact = () => {
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
 
+    useEffect(() => {
+        const moveCursor = (e) => {
+            cursorX.set(e.clientX - 5);
+            cursorY.set(e.clientY - 5);
+        };
+
+        window.addEventListener("mousemove", moveCursor);
+
+        return () => {
+            window.removeEventListener("mousemove", moveCursor);
+        };
+    }, []);
+
     return (
-        <div>
+        <div className={styles.contact}>
+
             <div className={styles.article}>
-                <h3>Contact</h3>
-                <h1>Let's work</h1>
-                <h1>together</h1>
+                <h3><strong>Contact</strong></h3>
+                <h1 className="red">Let's work</h1>
+                <h1 className="red">together</h1>
             </div>
+            <div className={styles.article}>
+                <span>
+                    <h3><strong>A question ?</strong></h3>
+                    <Link href="mailto:info@emji.be" passHref>
+                        <h3>info@emji.be</h3>
+                    </Link>
+                </span>
+                <span>
+                    <h3><strong>Business talk ?</strong></h3>
+                    <Link href="mailto:business@emji.be" passHref>
+                        <h3>business@emji.be</h3>
+                    </Link>
+                </span>
+            </div>
+
             <motion.div
                 variants={transitionVariants}
                 initial="hidden"
