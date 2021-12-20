@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react"
 import Image from 'next/image'
 import Link from "next/link";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
+import { motion, useMotionValue, useTransform, useViewportScroll, useSpring } from "framer-motion"
 import styles from '../../styles/Home.module.scss'
 import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
@@ -17,6 +17,10 @@ export const getStaticProps = async () => {
 }
 
 const Projects = ({projects}) => {
+    const [isComplete, setIsComplete] = useState(false);
+    const { scrollYProgress } = useViewportScroll();
+    const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
+
     const cursorX = useMotionValue(-100);
     const cursorY = useMotionValue(-100);
   
@@ -69,7 +73,14 @@ const Projects = ({projects}) => {
 
                 {projects.map(project => (
                     <Link href={"/projects/" + project.id} key={project.id} passHref scroll={true}>
-                        <div className={stylesProject.projectName}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 500, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{
+                                duration: .8, ease: "easeOut",
+                            }}
+                            className={stylesProject.projectName}>
                                 <figure>
                                     <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>
                                 </figure>
@@ -77,7 +88,7 @@ const Projects = ({projects}) => {
                                     <h3><strong>{project.title ? project.title : 'Project name'}</strong></h3>
                                     <p>{ project.type ? project.type : 'Website & Branding'}</p>
                                 </article>
-                        </div>
+                        </motion.div>
                     </Link>
                 ))}
             </div>
