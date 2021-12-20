@@ -28,7 +28,11 @@ const EmjiTextAnimation = (animation) => {
         },
     }
     return (
-        <h1 className={styles.emji}>
+        <motion.h1
+          // animate={{color: animation.animation ? '#404040' : '#CF081B'}}
+          animate={{scale: animation.animation ? 0.99 : 1.04 }}
+          transition={{ ease: "easeInOut", duration: 1, repeat: Infinity, repeatType: 'reverse' }}
+          className={styles.emji}>
             <motion.span
               variants={showEVariants}
               initial="hidden"
@@ -77,7 +81,7 @@ const EmjiTextAnimation = (animation) => {
               }}>
                 en
             </motion.span>
-        </h1>
+        </motion.h1>
     )
 }
 

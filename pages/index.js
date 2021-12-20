@@ -53,7 +53,7 @@ const Welcome = () => {
       y: 20, opacity: 0
     },
     visible: {
-      y: 0, opacity: 1
+      y: 0, opacity: 1,
     },
     exit: {
       y: -40, opacity: 0
@@ -145,7 +145,6 @@ const Welcome = () => {
           <motion.article
             initial="rest" 
             whileHover="hover"
-            animate="rest"
             exit="exit"
             onMouseMove={handleMouse}
             onMouseLeave={handleMouseOut}
@@ -191,7 +190,8 @@ const Welcome = () => {
               transition={{ 
                 duration: 1,
                 delay: .5
-              }}>
+              }}
+            >
               <motion.span
                 variants={textAnimatorVariants}
                 initial="hidden"
@@ -232,6 +232,7 @@ const Welcome = () => {
 
           </motion.article>
         </Link>
+
         <motion.figure
           variants={textVariants}
           initial="hidden"
@@ -253,7 +254,7 @@ const Welcome = () => {
         animate="visible"
         exit="exit"
         transition={{
-          duration: 1, ease: "easeInOut", delay: .5
+          duration: 1, ease: "easeInOut"
         }}
         className={stylesClickMe.transitonDiv}
         style={{

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
+import { motion, useMotionValue, useTransform, useViewportScroll, useSpring } from "framer-motion"
 import styles from '../styles/Home.module.scss'
 import stylesProject from '../styles/Projects.module.scss'
 import stylesClickMe from '../styles/global/ClickMe.module.scss'
@@ -18,6 +18,10 @@ export const getStaticProps = async () => {
 }
 
 const Home = ({projects}) => {
+    const [isComplete, setIsComplete] = useState(false);
+    const { scrollYProgress } = useViewportScroll();
+    const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
+
     const textVariants = {
         hidden: {
             y: 20, opacity: 0
@@ -103,7 +107,14 @@ const Home = ({projects}) => {
             <div className={stylesProject.project}>
                 {projects.map(project => (
                     <Link href="/projects/1" passHref scroll={true}>
-                        <div className={stylesProject.projectName}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 500, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{
+                                duration: .8, ease: "easeOut",
+                            }}
+                            className={stylesProject.projectName}>
                             <figure>
                                 <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>
                             </figure>
@@ -111,7 +122,7 @@ const Home = ({projects}) => {
                                 <h3><strong>{ project.title ? project.title : 'Project name 1'}</strong></h3>
                                 <p>{ project.type ? project.type : 'Website & Branding'}</p>
                             </article>
-                        </div>
+                        </motion.div>
                     </Link>
                 ))}
 
@@ -123,11 +134,17 @@ const Home = ({projects}) => {
             </div>
 
             <div className={styles.scrollDown}>
+                <motion.div className={styles.item}
+                    // style={{
+                    //     scaleY: scale
+                    // }}
+                />
                 <svg xmlns="http://www.w3.org/2000/svg" width="24.976" height="23.121" viewBox="0 0 24.976 23.121">
                     <path
                         variants={scrollDownVariants}
                         initial="hidden"
                         animate="visible"
+                        // animate={{ pathLength: isComplete ? 1 : 0 }}
                         d="M7.5,18H30.976" 
                         transform="translate(-7.5 -6.439)" 
                         fill="none" 
