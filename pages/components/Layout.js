@@ -28,6 +28,12 @@ function Layout({children}) {
                 innerScale={0.7}
                 outerScale={2}
             />
+            <div className='toSmale'>
+		        <article>
+                    <h1 class="bold">No mobile version sorry</h1>
+                    <h3 class="bold">Watch on desktop it's sick.</h3>
+                </article>
+            </div>
         </>
     )
 }

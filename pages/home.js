@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react"
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
@@ -69,6 +70,12 @@ const Home = ({projects}) => {
 
     return (
         <div className={styles.content}>
+            <Head>
+                <title>eMJi - Home</title>
+                <meta name="description" content="Home - eMji" />
+                <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <div className={styles.hero}>
                 <article>
                     <motion.h1
@@ -95,7 +102,7 @@ const Home = ({projects}) => {
 
             <div className={stylesProject.project}>
                 {projects.map(project => (
-                    <Link href="/projects/1" passHref scroll={false}>
+                    <Link href="/projects/1" passHref scroll={true}>
                         <div className={stylesProject.projectName}>
                             <figure>
                                 <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>

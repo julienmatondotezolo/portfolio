@@ -68,7 +68,7 @@ const Projects = ({projects}) => {
             <div className={stylesProject.project}>
 
                 {projects.map(project => (
-                    <Link href={"/projects/" + project.id} key={project.id} passHref scroll={false}>
+                    <Link href={"/projects/" + project.id} key={project.id} passHref scroll={true}>
                         <div className={stylesProject.projectName}>
                                 <figure>
                                     <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>

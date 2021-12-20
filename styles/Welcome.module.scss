@@ -26,3 +26,15 @@
   margin-left: 1em;
   float: left;
 }
+
+@media screen and (max-width: 800px) {
+  .article {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .article {
+    width: 100% !important;
+  }
+}

@@ -372,3 +372,63 @@ input {
     cursor: pointer;
     background: transparent;
 }
+
+/* =========================================================================================================*/
+
+/*/////////////    NO MOBILE VERSION   ////////////////*/
+
+.toSmale {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background: $red;
+}
+
+.toSmale article {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	color: #fff;
+	transform: translate(-50%, -50%) scale(1.0);
+	text-align: center;
+	width: 90%;
+}
+
+.toSmale h1,
+.toSmale h3 {
+	color: #fff;
+	text-align: center;
+	margin: 0;
+}
+
+.toSmale img {
+	width: 50%;
+	margin-bottom: 2em;
+}
+
+.toSmale h1 {
+	font-size: 120%;
+}
+
+.toSmale h3 {
+	margin-top: .5em;
+	font-size: 80%;
+}
+
+.toSmale {
+    display: none;
+}
+
+@media screen and (max-width: 1144px) {
+    * {
+        cursor: auto !important;
+    }
+
+	.toSmale {
+		display: block;
+	}
+}
