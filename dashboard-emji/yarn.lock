@@ -1734,7 +1734,7 @@
   dependencies:
     "@strapi/utils" "4.0.0"
 
-"@strapi/strapi@4.0.0":
+"@strapi/strapi@4.0.1":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@strapi/strapi/-/strapi-4.0.0.tgz#41515264cd15b59c64b3be573cd7464e5083f511"
   integrity sha512-TghjCcLdsznGSEAneVCv/43Klw4zEoW1yp1rlfSIAu9k2g9vs4pXGF5vmS5ycMUxiYCjyxxEvugHXs4bNqy5Zw==
