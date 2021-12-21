@@ -14,7 +14,8 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
     "image": {
       "type": "media",
@@ -23,11 +24,13 @@
       "allowedTypes": [
         "images",
         "videos"
-      ]
+      ],
+      "pluginOptions": {}
     },
     "description": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
     "type": {
       "type": "enumeration",
@@ -37,15 +40,18 @@
         "Branding",
         "Animation"
       ],
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
     "published_date": {
       "type": "datetime",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
-    "Project_url": {
+    "project_url": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     }
   }
 }
