@@ -20,6 +20,31 @@ const Contact = () => {
         } 
     }
 
+    const textArticleVariant = {
+        hidden: {
+            x: -200,
+            opacity: 0
+        },
+        visible: {
+            x: 0,
+            opacity: 1
+        },
+        exit: {
+            y: 800,
+            opacity: 0,
+            scale: 0
+        } 
+    }
+
+    const textVariants = {
+        hidden: {
+            y: 20, opacity: 0
+        },
+        visible: {
+            y: 0, opacity: 1
+        }
+    }
+
     const cursorX = useMotionValue(-100);
     const cursorY = useMotionValue(-100);
   
@@ -44,23 +69,82 @@ const Contact = () => {
         <div className={styles.contact}>
 
             <div className={styles.article}>
-                <h3><strong>Contact</strong></h3>
-                <h1 className="red">Let's work</h1>
-                <h1 className="red">together</h1>
+                <motion.h3
+                    variants={textArticleVariant}
+                    initial="hidden"
+                    animate="visible"
+                    // animate={animationName ? "visible" : "hidden"}
+                    exit="exit"
+                    transition={{
+                        duration: 1, ease: "easeOut", delay: .5
+                    }}>
+                    <strong>Contact</strong>
+                </motion.h3>
+                <motion.h1
+                    variants={textArticleVariant}
+                    initial="hidden"
+                    animate="visible"
+                    // animate={animationName ? "visible" : "hidden"}
+                    exit="exit"
+                    transition={{
+                        duration: 1, ease: "easeOut", delay: .9
+                    }}
+                    className="red">
+                    Let's work
+                </motion.h1>
+
+                <motion.h1
+                    variants={textArticleVariant}
+                    initial="hidden"
+                    animate="visible"
+                    // animate={animationName ? "visible" : "hidden"}
+                    exit="exit"
+                    transition={{
+                        duration: 1, ease: "easeOut", delay: 1.2
+                    }}
+                    className="red">
+                    together
+                </motion.h1>
             </div>
             <div className={styles.article}>
-                <span>
+                <motion.span
+                    variants={textVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ 
+                        duration: 1,
+                        delay: 1.4
+                    }}>
                     <h3><strong>A question ?</strong></h3>
                     <Link href="mailto:info@emji.be" passHref>
-                        <h3>info@emji.be</h3>
+                        <motion.h3
+                        whileHover={{ scale: 1.3 }}
+                        transition={{
+                            duration: .1,
+                            ease: 'easeOut'
+                        }}
+                        >info@emji.be</motion.h3>
                     </Link>
-                </span>
-                <span>
+                </motion.span>
+                <motion.span
+                    variants={textVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ 
+                        duration: 1.6,
+                        delay: 1
+                    }}>
                     <h3><strong>Business talk ?</strong></h3>
                     <Link href="mailto:business@emji.be" passHref>
-                        <h3>business@emji.be</h3>
+                        <motion.h3
+                        whileHover={{ scale: 1.3 }}
+                        transition={{
+                            duration: .1,
+                            ease: 'easeOut'
+                        }}
+                        >business@emji.be</motion.h3>
                     </Link>
-                </span>
+                </motion.span>
             </div>
 
             <motion.div

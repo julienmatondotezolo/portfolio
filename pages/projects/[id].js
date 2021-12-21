@@ -34,8 +34,12 @@ export const getStaticProps = async (context) => {
 const Details = ({ projectDetail }) => {
     const [animationName, setAnimationName] = useState(false)
 
+    function transitionClick(direction) {
+        direction == 'next' ? setAnimationName(true) : setAnimationName(false)
+        console.log('transition:', animationName)
+    }
+
     useEffect(() => {
-        console.log('Route id updated:', projectDetail.id);
         setAnimationName(true)
     }, [projectDetail.id])
 
@@ -162,8 +166,8 @@ const Details = ({ projectDetail }) => {
                         <motion.figure
                             variants={imageVariant}
                             initial="hidden"
-                            animate="visible"
-                            // animate={animationName ? "visible" : "hidden"}
+                            // animate="visible"
+                            animate={animationName ? "visible" : "exit"}
                             exit="exit"
                             transition={{
                                 duration: 1.5, ease: "easeOut", delay: .5
@@ -237,6 +241,7 @@ const Details = ({ projectDetail }) => {
                                 : '' }
                                 <Link href={"/projects/" + nextProject} key={nextProject} passHref scroll={false}>
                                     <motion.span
+                                        onClick={(e) => transitionClick('next')}
                                         variants={nextVariant}
                                         initial="hidden"
                                         animate="visible"

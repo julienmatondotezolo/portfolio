@@ -17,10 +17,6 @@ export const getStaticProps = async () => {
 }
 
 const Projects = ({projects}) => {
-    const [isComplete, setIsComplete] = useState(false);
-    const { scrollYProgress } = useViewportScroll();
-    const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
-
     const cursorX = useMotionValue(-100);
     const cursorY = useMotionValue(-100);
   
@@ -53,12 +49,133 @@ const Projects = ({projects}) => {
           }
     }
 
+    const textArticleVariant = {
+        hidden: {
+            x: -200,
+            opacity: 0
+        },
+        visible: {
+            x: 0,
+            opacity: 1
+        },
+        exit: {
+            y: 800,
+            opacity: 0,
+            scale: 0
+        } 
+    }
+
+    const dottVariant = {
+        hidden: {
+            y: -20,
+            opacity: 0,
+            scale: 0
+        },
+        visible: {
+            y: 0,
+            opacity: 1,
+            scale: 1
+        },
+        exit: {
+            y: 800,
+            opacity: 0,
+            scale: 0
+        } 
+    }
+
+    const scrollVariants = {
+        hidden: {
+            scale: 0.8
+        },
+        down: {
+            rotate: 0,
+            scale: 1
+        },
+        hover: {
+            scale: 1.5
+        },
+        up: {
+            rotate: 180,
+        },
+    }
+
+    const arrowVariants = {
+        hidden: {
+            pathLength: 0,
+        },
+        visible: {
+            pathLength: 1,
+        }
+    }
+
+    const [isComplete, setIsComplete] = useState(false);
+    const [height, setHeight] = useState(null);
+    
+    useEffect(() => {
+        setHeight(document.getElementById("projects").offsetHeight);
+    }, []);
+
+    const { scrollYProgress } = useViewportScroll();
+    const scrollScale = useTransform(scrollYProgress, [0, height], [1, 1.5]);
+    const scrollInnerScale = useTransform(scrollYProgress, [0, height], [0, 1]);
+
+    useEffect(() => {
+        const handleScroll = (e) => {
+            scrollYProgress.set(window.scrollY);
+
+            const pageHeight = (document.getElementById("projects").offsetHeight)
+            pageHeight == (scrollYProgress.get()) ? setIsComplete(true) : setIsComplete(false)
+        }
+    
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+          window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    function scrollTo(bool) {
+        window.scrollTo({
+            top: bool ? 0 : height,
+            behavior: 'smooth',
+        });
+    }
+
     return (
         <div className={styles.content}>
             <div className={styles.hero}>
                 <article>
-                    <h1>My</h1>
-                    <h1><strong>Projects</strong><span>.</span></h1>
+                    <motion.h1
+                        variants={textArticleVariant}
+                        initial="hidden"
+                        animate="visible"
+                        // animate={animationName ? "visible" : "hidden"}
+                        exit="exit"
+                        transition={{
+                            duration: 1, ease: "easeOut", delay: .5
+                        }}>
+                        My
+                    </motion.h1>
+                    <motion.h1
+                        variants={textArticleVariant}
+                        initial="hidden"
+                        animate="visible"
+                        // animate={animationName ? "visible" : "hidden"}
+                        exit="exit"
+                        transition={{
+                            duration: 1, ease: "easeOut", delay: .8
+                        }}>
+                        <strong>Projects</strong>
+                        <motion.span
+                            variants={dottVariant}
+                            initial="hidden"
+                            animate="visible"
+                            // animate={animationName ? "visible" : "hidden"}
+                            exit="exit"
+                            transition={{
+                                duration: 1, ease: "easeOut", delay: 1.5
+                            }}>
+                        .</motion.span>
+                    </motion.h1>
                     <ul>
                         <li>All</li>
                         <li>Website</li>
@@ -69,10 +186,10 @@ const Projects = ({projects}) => {
                 </article>
             </div>
 
-            <div className={stylesProject.project}>
+            <div id="projects" className={stylesProject.project}>
 
-                {projects.map(project => (
-                    <Link href={"/projects/" + project.id} key={project.id} passHref scroll={true}>
+                {projects.map((project, i) => (
+                    <Link key={i} href={"/projects/" + project.id} key={project.id} passHref scroll={true}>
                         <motion.div
                             initial={{ opacity: 0, y: 500, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -92,6 +209,47 @@ const Projects = ({projects}) => {
                     </Link>
                 ))}
             </div>
+
+            <motion.div
+                onClick={(e) => scrollTo(isComplete)}
+                variants={scrollVariants}
+                initial="hidden"
+                animate={isComplete ? "up" : "down"}
+                whileHover={{scale: 1.2}}
+                transition={{ ease: "easeInOut", duration: 1, repeat: 2, repeatType: 'reverse' }}
+                className={styles.scrollDown}>
+                <motion.div
+                    style={{
+                        scale: scrollScale,
+                    }}
+                    className={styles.container}
+                >
+                    <motion.div className={styles.item} style={{ scaleY: scrollInnerScale}} />
+                    {/* <motion.div className={styles.item} style={{ scaleY: scrollYProgress}} /> */}
+                </motion.div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24.976" height="23.121" viewBox="0 0 24.976 23.121">
+                    <motion.path
+                        variants={arrowVariants}
+                        initial="hidden"
+                        animate="visible"
+                        // animate={{ pathLength: isComplete ? 1 : 0 }}
+                        d="M7.5,18H30.976" 
+                        transform="translate(-7.5 -6.439)" 
+                        fill="none" 
+                        stroke="#fff" 
+                        strokeWidth="2"/>
+                    <motion.path
+                        variants={arrowVariants}
+                        initial="hidden"
+                        animate="visible" 
+                        d="M18,7.5,28.5,18,18,28.5" 
+                        transform="translate(-5.024 -6.439)" 
+                        fill="none" 
+                        stroke="#fff" 
+                        strokeWidth="2"/>
+                </svg>
+            </motion.div>
 
             <motion.div
                 variants={transitionVariants}

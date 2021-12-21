@@ -12,13 +12,13 @@ function Layout({children}) {
     const router = useRouter();
     return (
         <>
-            {router.pathname !== "/" ? <Navigation /> : ''}
             <div className='contentFill'></div>
             <main>
                 <div>
                     {children}
                 </div>
             </main>
+            {router.pathname !== "/" ? <Navigation /> : ''}
             <GradientLight />
             <AnimatedCursor
                 innerSize={15}
@@ -30,8 +30,8 @@ function Layout({children}) {
             />
             <div className='toSmale'>
 		        <article>
-                    <h1 class="bold">No mobile version sorry</h1>
-                    <h3 class="bold">Watch on desktop it's sick.</h3>
+                    <h1 className="bold">No mobile version sorry</h1>
+                    <h3 className="bold">Watch on desktop it's sick.</h3>
                 </article>
             </div>
         </>

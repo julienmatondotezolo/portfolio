@@ -16,7 +16,7 @@
 .article article {
   position: relative;
   float: left;
-  width: 50%;
+  width: 60%;
   transition: all .2s ease-out;
   -webkit-transition: all .2s ease-out;
   -moz-transition: all .2s ease-out;
@@ -28,7 +28,7 @@
   float: right;
 }
 
-.article figure p {
+.article figure a {
   margin-left: 1em;
   float: left;
 }

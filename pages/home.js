@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from "react"
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from "next/link";
+import Link from "next/link"
+import dynamic from 'next/dynamic'
+import { Parallax } from 'react-scroll-parallax';
 import { motion, useMotionValue, useTransform, useViewportScroll, useSpring } from "framer-motion"
 import styles from '../styles/Home.module.scss'
 import stylesProject from '../styles/Projects.module.scss'
@@ -19,8 +21,45 @@ export const getStaticProps = async () => {
 
 const Home = ({projects}) => {
     const [isComplete, setIsComplete] = useState(false);
+
+    const [height, setHeight] = useState(null);
+    const [elementHeight, setElementHeight] = useState(null)
+
+    useEffect(() => {
+        setHeight(document.getElementById("projects").offsetHeight);
+        // setElementHeight(document.getElementById("hero").offsetHeight)
+    }, []);
+
+
     const { scrollYProgress } = useViewportScroll();
-    const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
+    const textParallax = useTransform(scrollYProgress, [0, elementHeight], [0, 400]);
+    const projectsParallax = useTransform(scrollYProgress, [0, elementHeight], [0, -200]);
+
+    const progressHide = useTransform(scrollYProgress, [0, 350], [1, 0])
+
+    const scrollScale = useTransform(scrollYProgress, [0, height], [1, 1.5]);
+    const scrollInnerScale = useTransform(scrollYProgress, [0, height], [0, 1]);
+
+    useEffect(() => {
+        const handleScroll = (e) => {
+            scrollYProgress.set(window.scrollY);
+
+            const pageHeight = (document.getElementById("projects").offsetHeight)
+            pageHeight == (scrollYProgress.get()) ? setIsComplete(true) : setIsComplete(false)
+        }
+    
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+          window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    function handleScroll(bool) {
+        window.scrollTo({
+            top: bool ? 0 : height,
+            behavior: 'smooth',
+        });
+    }
 
     const textVariants = {
         hidden: {
@@ -72,6 +111,40 @@ const Home = ({projects}) => {
         }
     }
 
+    const scrollVariants = {
+        hidden: {
+            scale: 0.8
+        },
+        down: {
+            rotate: 0,
+            scale: 1
+        },
+        hover: {
+            scale: 1.5
+        },
+        up: {
+            rotate: 180,
+        },
+    }
+
+    const dottVariant = {
+        hidden: {
+            y: 40,
+            opacity: 0,
+            scale: 0
+        },
+        visible: {
+            y: 0,
+            opacity: 1,
+            scale: 1
+        },
+        exit: {
+            y: 800,
+            opacity: 0,
+            scale: 0
+        } 
+    }
+
     return (
         <div className={styles.content}>
             <Head>
@@ -80,8 +153,12 @@ const Home = ({projects}) => {
                 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className={styles.hero}>
-                <article>
+            <div
+                // y={[-100, 100]}
+                className={styles.hero}>
+                <motion.article
+                    style={{opacity: progressHide}}
+                >
                     <motion.h1
                     variants={textVariants}
                     initial="hidden"
@@ -90,7 +167,18 @@ const Home = ({projects}) => {
                         duration: 1,
                         delay: .5
                     }}>
-                        <strong>UX-UI</strong> designer<span>.</span></motion.h1>
+                        <strong>UX-UI</strong> designer
+                        <motion.span
+                            variants={dottVariant}
+                            initial="hidden"
+                            animate="visible"
+                            // animate={animationName ? "visible" : "hidden"}
+                            exit="exit"
+                            transition={{
+                                duration: 1, ease: "easeOut", delay: 1.2
+                            }}>
+                        .</motion.span>
+                    </motion.h1>
                     <motion.h1
                     variants={textVariants}
                     initial="hidden"
@@ -99,14 +187,25 @@ const Home = ({projects}) => {
                         duration: 1,
                         delay: 1
                     }}>
-                        <strong>Full stack</strong> developer<span>.</span>
+                        <strong>Full stack</strong> developer
+                        <motion.span
+                            variants={dottVariant}
+                            initial="hidden"
+                            animate="visible"
+                            // animate={animationName ? "visible" : "hidden"}
+                            exit="exit"
+                            transition={{
+                                duration: 1, ease: "easeOut", delay: 1.7
+                            }}>
+                        .</motion.span>
                     </motion.h1>
-                </article>
+                </motion.article>
             </div>
 
-            <div className={stylesProject.project}>
-                {projects.map(project => (
-                    <Link href="/projects/1" passHref scroll={true}>
+            <motion.div id="projects" className={stylesProject.project}>
+            {/* style={{ y: projectsParallax }} */}
+                {projects.map((project, i) => (
+                    <Link key={i} href="/projects/1" passHref scroll={true}>
                         <motion.div
                             initial={{ opacity: 0, y: 500, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -131,16 +230,28 @@ const Home = ({projects}) => {
                         <a>All projects</a>
                     </Link>
                 </section>
-            </div>
+            </motion.div>
 
-            <div className={styles.scrollDown}>
-                <motion.div className={styles.item}
-                    // style={{
-                    //     scaleY: scale
-                    // }}
-                />
+            <motion.div
+                onClick={(e) => handleScroll(isComplete)}
+                variants={scrollVariants}
+                initial="hidden"
+                animate={isComplete ? "up" : "down"}
+                whileHover={{scale: 1.2}}
+                transition={{ ease: "easeInOut", duration: 1, repeat: 2, repeatType: 'reverse' }}
+                className={styles.scrollDown}>
+                <motion.div
+                    style={{
+                        scale: scrollScale,
+                    }}
+                    className={styles.container}
+                >
+                    <motion.div className={styles.item} style={{ scaleY: scrollInnerScale}} />
+                    {/* <motion.div className={styles.item} style={{ scaleY: scrollYProgress}} /> */}
+                </motion.div>
+
                 <svg xmlns="http://www.w3.org/2000/svg" width="24.976" height="23.121" viewBox="0 0 24.976 23.121">
-                    <path
+                    <motion.path
                         variants={scrollDownVariants}
                         initial="hidden"
                         animate="visible"
@@ -150,7 +261,7 @@ const Home = ({projects}) => {
                         fill="none" 
                         stroke="#fff" 
                         strokeWidth="2"/>
-                    <path
+                    <motion.path
                         variants={scrollDownVariants}
                         initial="hidden"
                         animate="visible" 
@@ -160,7 +271,7 @@ const Home = ({projects}) => {
                         stroke="#fff" 
                         strokeWidth="2"/>
                 </svg>
-            </div>
+            </motion.div>
 
             <motion.div
                 variants={transitionVariants}

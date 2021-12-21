@@ -1,6 +1,7 @@
 import '../styles/globals.scss'
 import App from 'next/app';
 
+import { ParallaxProvider } from 'react-scroll-parallax';
 import { AnimatePresence } from "framer-motion";
 import Layout from './components/Layout';
 
@@ -9,13 +10,13 @@ class MyApp extends App {
     const { Component, pageProps, router } = this.props;
 
     return (
-      // <AnimatePresence exitBeforeEnter>
+      <ParallaxProvider>
         <Layout>
-        <AnimatePresence exitBeforeEnter>
-          <Component {...pageProps} key={router.route} />
-        </AnimatePresence>
+          <AnimatePresence exitBeforeEnter>
+            <Component {...pageProps} key={router.route} />
+          </AnimatePresence>
         </Layout>
-      // </AnimatePresence>
+      </ParallaxProvider>
     );
   }
 }

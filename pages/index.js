@@ -47,7 +47,6 @@ const Welcome = () => {
   function handleMouseOut() {
     setAnimationName(false)
   }
-
   const textVariants = {
     hidden: {
       y: 20, opacity: 0
@@ -132,7 +131,7 @@ const Welcome = () => {
           variants={strokeVariants}
           initial="hidden"
           animate="visible"
-          exit="exit"
+          // exit="exit"
           transition={{
             duration: .5, ease: "easeInOut",
           }}
@@ -159,7 +158,7 @@ const Welcome = () => {
               variants={textVariants}
               initial="hidden"
               animate="visible"
-              exit="exit"
+              // exit="exit"
               style={{
                 width: '100%'
               }}
@@ -183,7 +182,7 @@ const Welcome = () => {
               variants={textVariants}
               initial="hidden"
               animate="visible"
-              exit="exit"
+              // exit="exit"
               style={{
                 width: '100%',
               }}
@@ -210,7 +209,7 @@ const Welcome = () => {
               variants={textVariants}
               initial="hidden"
               animate="visible"
-              exit="exit"
+              // exit="exit"
               transition={{ 
                 duration: .5,
                 delay: 1
@@ -242,9 +241,40 @@ const Welcome = () => {
             duration: .5,
             delay: 1.5
           }}>
-          <p>Behance</p>
-          <p>Facebook</p>
-          <p>Twitter</p>
+          <Link href="https://www.behance.net/emji" passHref>
+            <motion.a 
+              whileHover={{ scale: 1.3 }}
+              transition={{
+                duration: .1,
+                ease: 'easeOut'
+              }}
+              target="_blank">
+              Behance
+            </motion.a>
+          </Link>
+          <Link href="https://www.facebook.com/mjlegraphist" passHref>
+            <motion.a 
+              whileHover={{ scale: 1.3 }}
+              transition={{
+                duration: .1,
+                ease: 'easeOut'
+              }}
+              target="_blank">
+              Facebook
+            </motion.a>
+          </Link>
+          <Link href="https://twitter.com/mjlegraphist" passHref>
+            <motion.a 
+              whileHover={{ scale: 1.3 }}
+              transition={{
+                duration: .1,
+                ease: 'easeOut'
+              }}
+              target="_blank">
+              Twitter
+            </motion.a>
+          </Link>
+          
         </motion.figure>
       </div>
 
