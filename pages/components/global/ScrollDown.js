@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { motion, useMotionValue, useTransform, useViewportScroll, useSpring } from "framer-motion"
-import styles from '../../../styles/global/'
+import styles from '../../../styles/global/Scroll.module.scss'
 
 const ScrollDown = () => {
     const [isComplete, setIsComplete] = useState(false);
