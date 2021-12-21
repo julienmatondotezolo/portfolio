@@ -199,7 +199,13 @@ const Details = ({ projectDetail }) => {
                                         duration: 1, ease: "easeOut", delay: .6
                                     }}>
                                     <p>{ projectDetail.attributes.type ? projectDetail.attributes.type : 'Website' }</p>
-                                    <p><strong>{ projectDetail.attributes.project_url ? projectDetail.attributes.project_url : 'https://projectone.com/'}</strong></p>
+                                    <Link href={projectDetail.attributes.project_url} passHref>
+                                    <a target="_blank">
+                                        <strong>
+                                            { projectDetail.attributes.project_url ? projectDetail.attributes.project_url : 'https://projectone.com/'}
+                                        </strong>
+                                    </a>
+                                    </Link>
                                 </motion.span>
                                 <motion.span
                                     variants={infoVariant}
