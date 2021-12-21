@@ -47,12 +47,13 @@
 .projectDetail figure img {
     position: absolute;
     top: 50%;
-    width: 100%;
-    transform: translate(0, -50%);
-    -webkit-transform: translate(0, -50%);
-    -moz-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    -o-transform: translate(0, -50%);
+    left: 50%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
 }
 
 .project {
@@ -84,7 +85,8 @@
 .project .projectName figure img {
     position: absolute;
     top: 50%;
-    width: 100%;
+    left: 50%;
+    height: 100%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -134,4 +136,10 @@
 
 .nextProject span:last-child {
     text-align: right;
+}
+
+.nextProject a {
+    text-transform: lowercase;
+    text-decoration: underline;
+    color: $red;
 }

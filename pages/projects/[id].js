@@ -6,7 +6,7 @@ import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
 
 export const getStaticPaths = async () => {
-    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects')
+    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image')
     const data = await res.json()
 
     const paths = data.data.map(project => {
@@ -23,7 +23,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id
-    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects/' + id)
+    const res = await fetch(`https://dashboard-emji.herokuapp.com/api/projects/${id}?populate=image`)
     const data = await res.json()
 
     return {
@@ -172,7 +172,8 @@ const Details = ({ projectDetail }) => {
                             transition={{
                                 duration: 1.5, ease: "easeOut", delay: .5
                             }}>
-                            <img src={ projectDetail.attributes.image ? projectDetail.attributes.image : "https://picsum.photos/200"} alt="Picture"/>
+                            {}
+                            <img src={ projectDetail.attributes.image.data.attributes.url ? projectDetail.attributes.image.data.attributes.url : "https://picsum.photos/200"} alt="Picture"/>
                         </motion.figure>
                         <motion.article
                             variants={textArticleVariant}
@@ -199,11 +200,9 @@ const Details = ({ projectDetail }) => {
                                         duration: 1, ease: "easeOut", delay: .6
                                     }}>
                                     <p>{ projectDetail.attributes.type ? projectDetail.attributes.type : 'Website' }</p>
-                                    <Link href={projectDetail.attributes.project_url} passHref>
+                                    <Link href={ projectDetail.attributes.project_url ? projectDetail.attributes.project_url : '/'} passHref>
                                     <a target="_blank">
-                                        <strong>
-                                            { projectDetail.attributes.project_url ? projectDetail.attributes.project_url : 'https://projectone.com/'}
-                                        </strong>
+                                        Visit project
                                     </a>
                                     </Link>
                                 </motion.span>
@@ -217,7 +216,9 @@ const Details = ({ projectDetail }) => {
                                         duration: 1, ease: "easeOut", delay: .7
                                     }}>
                                     <p>Project Date</p>
-                                    <p><strong>{ projectDetail.attributes.published_date ? projectDetail.attributes.published_date : 'Dec 2021' }</strong></p>
+                                    <p>
+                                        <strong>{ projectDetail.attributes.published_date ? projectDetail.attributes.published_date : 'Dec 2021' }</strong>
+                                    </p>
                                 </motion.span>
                             </section>
 

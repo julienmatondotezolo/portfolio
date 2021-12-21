@@ -8,7 +8,7 @@ import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
 
 export const getStaticProps = async () => {
-    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects')
+    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image')
     const data = await res.json()
 
     return {
@@ -199,7 +199,7 @@ const Projects = ({projects}) => {
                             }}
                             className={stylesProject.projectName}>
                                 <figure>
-                                    <img src={ project.attributes.image ? project.attributes.image : "https://picsum.photos/200"} alt="Picture"/>
+                                    <img src={ project.attributes.image.data.attributes.url ? project.attributes.image.data.attributes.url : "https://picsum.photos/200"} alt="Picture"/>
                                 </figure>
                                 <article>
                                     <h3><strong>{project.attributes.title ? project.attributes.title : 'Project name'}</strong></h3>

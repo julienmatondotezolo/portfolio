@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react"
+import useSWR from 'swr'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link"
@@ -11,7 +12,7 @@ import stylesProject from '../styles/Projects.module.scss'
 import stylesClickMe from '../styles/global/ClickMe.module.scss'
 
 export const getStaticProps = async () => {
-    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects')
+    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image&pagination[start]=0&pagination[limit]=2')
     const data = await res.json()
 
     return {
@@ -20,17 +21,22 @@ export const getStaticProps = async () => {
 }
 
 const Home = ({projects}) => {
-    console.log(projects)
+    // const { data, error } = useSWR('projects', fetcher)
+    // console.log('SWR:', data)
+    // if (error) return <div>failed to load</div>
+    // if (!data) return <div>loading...</div>
+    // const projects = data
+
     const [isComplete, setIsComplete] = useState(false);
 
     const [height, setHeight] = useState(null);
     const [elementHeight, setElementHeight] = useState(null)
 
     useEffect(() => {
+        console.log(document.getElementById("projects"))
         setHeight(document.getElementById("projects").offsetHeight);
         // setElementHeight(document.getElementById("hero").offsetHeight)
     }, []);
-
 
     const { scrollYProgress } = useViewportScroll();
     const textParallax = useTransform(scrollYProgress, [0, elementHeight], [0, 400]);
@@ -146,6 +152,11 @@ const Home = ({projects}) => {
         } 
     }
 
+    // const { data, error } = useSWR('projects', fetcher)
+    // console.log('SWR:', data)
+    // if (error) return <div>failed to load</div>
+    // if (!data) return <div>loading...</div>
+
     return (
         <div className={styles.content}>
             <Head>
@@ -216,7 +227,7 @@ const Home = ({projects}) => {
                             }}
                             className={stylesProject.projectName}>
                             <figure>
-                                <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>
+                                <img src={ project.attributes.image.data.attributes.url ? project.attributes.image.data.attributes.url : "https://picsum.photos/200"} alt="Picture"/>
                             </figure>
                             <article>
                                 <h3><strong>{ project.attributes.title ? project.attributes.title : 'Project name 1'}</strong></h3>
