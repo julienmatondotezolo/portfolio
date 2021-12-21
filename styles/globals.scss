@@ -211,6 +211,19 @@ em {
 //     cursor: auto;
 // }
 
+* {
+    scroll-behavior: smooth;
+}
+
+.scroll-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    will-change: transform;
+}
+
 body::-webkit-scrollbar {
     display: none;
 }

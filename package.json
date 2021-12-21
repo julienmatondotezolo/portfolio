@@ -15,7 +15,9 @@
     "react-animated-cursor": "^2.2.0",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.22.2",
-    "react-intersection-observer": "^8.33.1"
+    "react-intersection-observer": "^8.33.1",
+    "react-scroll-parallax": "^2.4.1",
+    "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
     "eslint": "8.4.1",
