@@ -4,27 +4,30 @@
   "info": {
     "singularName": "project",
     "pluralName": "projects",
-    "displayName": "projects"
+    "displayName": "projects",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "image": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images",
-        "files",
         "videos"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "type": {
       "type": "enumeration",
@@ -33,10 +36,16 @@
         "Mobile",
         "Branding",
         "Animation"
-      ]
+      ],
+      "required": true
     },
     "published_date": {
-      "type": "datetime"
+      "type": "datetime",
+      "required": true
+    },
+    "Project_url": {
+      "type": "string",
+      "required": true
     }
   }
 }
