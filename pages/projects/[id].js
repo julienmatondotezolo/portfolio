@@ -6,10 +6,10 @@ import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
 
 export const getStaticPaths = async () => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects')
     const data = await res.json()
 
-    const paths = data.map(project => {
+    const paths = data.data.map(project => {
         return {
             params: { id: project.id.toString() }
         }
@@ -23,11 +23,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts/' + id)
+    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects/' + id)
     const data = await res.json()
 
     return {
-        props: { projectDetail: data }
+        props: { projectDetail: data.data }
     }
 }
 
@@ -172,7 +172,7 @@ const Details = ({ projectDetail }) => {
                             transition={{
                                 duration: 1.5, ease: "easeOut", delay: .5
                             }}>
-                            <img src={ projectDetail.image ? projectDetail.image : "https://picsum.photos/200"} alt="Picture"/>
+                            <img src={ projectDetail.attributes.image ? projectDetail.attributes.image : "https://picsum.photos/200"} alt="Picture"/>
                         </motion.figure>
                         <motion.article
                             variants={textArticleVariant}
@@ -183,9 +183,9 @@ const Details = ({ projectDetail }) => {
                             transition={{
                                 duration: 1, ease: "easeOut", delay: .7
                             }}>
-                            <h3>{ projectDetail.type ? projectDetail.type : 'Website & Branding' }</h3>
-                            <h1><strong>{ projectDetail.title }</strong></h1>
-                            <p>{ projectDetail.body }</p>
+                            <h3>{ projectDetail.attributes.type ? projectDetail.attributes.type : 'Website & Branding' }</h3>
+                            <h1><strong>{ projectDetail.attributes.title }</strong></h1>
+                            <p>{ projectDetail.attributes.description }</p>
                         </motion.article>
                         <div className={stylesProject.nextProject}>
                             <section>
@@ -198,8 +198,8 @@ const Details = ({ projectDetail }) => {
                                     transition={{
                                         duration: 1, ease: "easeOut", delay: .6
                                     }}>
-                                    <p>{ projectDetail.type ? projectDetail.type : 'Website' }</p>
-                                    <p><strong>{ projectDetail.url ? projectDetail.url : 'https://projectone.com/'}</strong></p>
+                                    <p>{ projectDetail.attributes.type ? projectDetail.attributes.type : 'Website' }</p>
+                                    <p><strong>{ projectDetail.attributes.project_url ? projectDetail.attributes.project_url : 'https://projectone.com/'}</strong></p>
                                 </motion.span>
                                 <motion.span
                                     variants={infoVariant}
@@ -211,7 +211,7 @@ const Details = ({ projectDetail }) => {
                                         duration: 1, ease: "easeOut", delay: .7
                                     }}>
                                     <p>Project Date</p>
-                                    <p><strong>{ projectDetail.date ? projectDetail.date : 'Dec 2021' }</strong></p>
+                                    <p><strong>{ projectDetail.attributes.published_date ? projectDetail.attributes.published_date : 'Dec 2021' }</strong></p>
                                 </motion.span>
                             </section>
 

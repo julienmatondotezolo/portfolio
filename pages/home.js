@@ -11,15 +11,16 @@ import stylesProject from '../styles/Projects.module.scss'
 import stylesClickMe from '../styles/global/ClickMe.module.scss'
 
 export const getStaticProps = async () => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects')
     const data = await res.json()
 
     return {
-        props: { projects: data }
+        props: { projects: data.data }
     }
 }
 
 const Home = ({projects}) => {
+    console.log(projects)
     const [isComplete, setIsComplete] = useState(false);
 
     const [height, setHeight] = useState(null);
@@ -205,7 +206,7 @@ const Home = ({projects}) => {
             <motion.div id="projects" className={stylesProject.project}>
             {/* style={{ y: projectsParallax }} */}
                 {projects.map((project, i) => (
-                    <Link key={i} href="/projects/1" passHref scroll={true}>
+                    <Link key={i} href={"/projects/" + project.id} passHref scroll={true}>
                         <motion.div
                             initial={{ opacity: 0, y: 500, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -218,8 +219,8 @@ const Home = ({projects}) => {
                                 <img src={ project.image ? project.image : "https://picsum.photos/200"} alt="Picture"/>
                             </figure>
                             <article>
-                                <h3><strong>{ project.title ? project.title : 'Project name 1'}</strong></h3>
-                                <p>{ project.type ? project.type : 'Website & Branding'}</p>
+                                <h3><strong>{ project.attributes.title ? project.attributes.title : 'Project name 1'}</strong></h3>
+                                <p>{ project.attributes.type ? project.attributes.type : 'Website & Branding'}</p>
                             </article>
                         </motion.div>
                     </Link>
