@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Image from 'next/image'
 import Link from "next/link";
+import dateFormat from "dateformat";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
 import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
@@ -11,7 +12,9 @@ export const getStaticPaths = async () => {
 
     const paths = data.data.map(project => {
         return {
-            params: { id: project.id.toString() }
+            params: { 
+                id: project.id.toString(),
+            }
         }
     })
 
@@ -27,7 +30,9 @@ export const getStaticProps = async (context) => {
     const data = await res.json()
 
     return {
-        props: { projectDetail: data.data }
+        props: { 
+            projectDetail: data.data,
+        }
     }
 }
 
@@ -156,8 +161,8 @@ const Details = ({ projectDetail }) => {
         } 
     }
 
-    const nextProject = projectDetail.id + 1
-    const previousProject = projectDetail.id == 1 ? 100 : projectDetail.id - 1
+    const nextProject = ((projectDetail.id + 1) % 5) === 0 ? 1 : projectDetail.id + 1
+    const previousProject = ((projectDetail.id - 1) % 5) === 0 ? 1 : projectDetail.id - 1
 
     return (
         <div className={stylesProject.projectDetail}>
@@ -217,7 +222,9 @@ const Details = ({ projectDetail }) => {
                                     }}>
                                     <p>Project Date</p>
                                     <p>
-                                        <strong>{ projectDetail.attributes.published_date ? projectDetail.attributes.published_date : 'Dec 2021' }</strong>
+                                        <strong>
+                                        {projectDetail.attributes.published_date ? dateFormat(new Date(projectDetail.attributes.published_date), "dd mmm, yyyy") : 'Dec 2021'}
+                                        </strong>
                                     </p>
                                 </motion.span>
                             </section>
