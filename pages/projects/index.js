@@ -8,7 +8,7 @@ import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
 
 export const getServerSideProps = async () => {
-    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image')
+    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image&sort=title')
     const data = await res.json()
 
     return {
