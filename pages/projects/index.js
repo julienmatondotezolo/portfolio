@@ -7,7 +7,7 @@ import styles from '../../styles/Home.module.scss'
 import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
     const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image')
     const data = await res.json()
 
@@ -189,7 +189,7 @@ const Projects = ({projects}) => {
             <div id="projects" className={stylesProject.project}>
 
                 {projects.map((project, i) => (
-                    <Link key={i} href={"/projects/" + project.id} key={project.id} passHref scroll={true}>
+                    <Link href={"/projects/" + project.id} key={project.id} passHref scroll={true}>
                         <motion.div
                             initial={{ opacity: 0, y: 500, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
