@@ -6,38 +6,42 @@ import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
 import stylesProject from '../../styles/Projects.module.scss'
 import stylesClickMe from '../../styles/global/ClickMe.module.scss'
 
-export const getStaticPaths = async () => {
-    const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image')
-    const data = await res.json()
+// export const getStaticPaths = async () => {
+//     const res = await fetch('https://dashboard-emji.herokuapp.com/api/projects?populate=image')
+//     const data = await res.json()
 
-    const paths = data.data.map(project => {
-        return {
-            params: { 
-                id: project.id.toString(),
-            }
-        }
-    })
+//     const paths = data.data.map(project => {
+//         return {
+//             params: { 
+//                 id: project.id.toString(),
+//             }
+//         }
+//     })
 
-    return {
-        paths,
-        fallback: false
-    }
-}
+//     return {
+//         paths,
+//         fallback: false
+//     }
+// }
 
-export const getStaticProps = async (context) => {
-    const id = context.params.id
+export const getServerSideProps = async (context) => {
+    const { id } = context.query
     const res = await fetch(`https://dashboard-emji.herokuapp.com/api/projects/${id}?populate=image`)
+    const allRes = await fetch(`https://dashboard-emji.herokuapp.com/api/projects?populate=image`)
     const data = await res.json()
+    const allData = await allRes.json()
 
     return {
         props: { 
             projectDetail: data.data,
+            projects: allData.data,
         }
     }
 }
 
-const Details = ({ projectDetail }) => {
+const Details = ({ projectDetail, projects }) => {
     const [animationName, setAnimationName] = useState(false)
+    const projectLength = projects.length + 1;
 
     function transitionClick(direction) {
         direction == 'next' ? setAnimationName(true) : setAnimationName(false)
@@ -161,8 +165,8 @@ const Details = ({ projectDetail }) => {
         } 
     }
 
-    const nextProject = ((projectDetail.id + 1) % 5) === 0 ? 1 : projectDetail.id + 1
-    const previousProject = ((projectDetail.id - 1) % 5) === 0 ? 1 : projectDetail.id - 1
+    const nextProject = ((projectDetail.id + 1) % projectLength) === 0 ? 1 : projectDetail.id + 1
+    const previousProject = ((projectDetail.id - 1) % projectLength) === 0 ? 1 : projectDetail.id - 1
 
     return (
         <div className={stylesProject.projectDetail}>
